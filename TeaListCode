@@ -1,0 +1,53 @@
+//Author: Viet Than
+//Platform: Google Sheet
+//Date: 18 August 2018
+//Description: A bunch of codes that help in maintaining a database of teas for the Sales and Marketing team of HTC
+//List of Sheets: Finder, CodeMasterlist, DataValidation
+//                and Product Category sheets (Black, Red, Oolong, Yellow/Sun-Dried/Puer, Green, White, Special, Spice, Herb)
+
+//----------------------------------
+//Sheet: Finder
+//Sheet description: Here users can find teas by name (vietnamese/english) and HTC's assigned unique internal code
+//                   Sheet will display information about that tea as compiled in CodeMasterlist!
+//below are codes for Finder!
+
+//Finder1: Finding tea by Vietnamese names assuming Vietnamese tea names are vertically listed in sheet CodeMasterlist column E3:E301
+//Using Google Sheet Data Validation option
+CodeMasterlist!E3:E301
+
+//Finder2: Finding tea by English names assuming English tea names are vertically listed in sheet CodeMasterlist column F3:F301
+//Using Google Sheet Data Validation option
+CodeMasterlist!F3:F301
+
+//Finder3: Finding tea by HTC's assigned unique code assuming codes are vertically listed in sheet CodeMasterlist column C3:C301
+//Using Google Sheet Data Validation option
+CodeMasterlist!C3:C301
+
+//Finder4: Pull information about tea using Google Sheet Filter function (array being pulled if TRUE, condition to be fulfilled)
+//   In this case, condition is finding a cell within the specified column that = the cell with data to be compared
+//   The cell with data to be compared is data validated by Finder1-3
+=FILTER(CodeMasterlist!$A$3:$Z$301,CodeMasterlist!$E$3:$E$301=B2 )
+//----------------------------------
+
+
+//----------------------------------
+//Sheet: CodeMasterlist
+//Sheet Description: Gathering all info about any tea
+//below are codes for CodeMasterlist!
+
+//CodeMasterlist1: data validated with values of origins vertically-listed in sheet DataValidation column A2:A10
+DataValidation!A2:A10
+//----------------------------------
+
+
+//----------------------------------
+//Sheet: Tea Category sheets
+//Product Description: products from each category are separated into their own sheet
+//below are codes for the tea category sheets
+
+//Tea Category 1: Filter out teas into their respective categories based on HTC's assigned unique code
+//                Assigned unique codes have categories divided into thousands (Black = 1xxx, Red = 2xxx, etc)
+=FILTER(CodeMasterlist!A2:N115, CodeMasterlist!C2:C115 > 1999, CodeMasterlist!C2:C115 <3000)
+
+//----------------------------------
+
